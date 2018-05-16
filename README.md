@@ -24,6 +24,7 @@ with the following specific software versions:
 * RHEL: 7
 * Ubuntu: 16.04
 
+
 ## Role Variables
 
 The role defines most of its variables in `defaults/main.yml`:
@@ -304,12 +305,12 @@ The role defines most of its variables in `defaults/main.yml`:
 ### `nomad_bind_address`
 
 - Bind interface address
-- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}` 
+- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}`
 
 ### `nomad_advertise_address`
 
 - Network interface address to advertise to other nodes
-- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}` 
+- Default value: `{{ hostvars[inventory_hostname]['ansible_'+ nomad_iface ]['ipv4']['address'] }}`
 
 ### `nomad_ports`
 
@@ -372,10 +373,80 @@ in many Ansible versions, so this feature might not always work.
 - Specifies the number of server nodes to wait for before bootstrapping.
 - Default value: `{{ nomad_servers | count or 3 }}}
 
+### `nomad_acl_enabled`
+
+- Enable ACLs
+- Default value: **no**
+
+### `nomad_acl_token_ttl`
+
+- TTL for tokens
+- Default value: **"30s"**
+
+### `nomad_acl_policy_ttl`
+
+- TTL for policies
+- Default value: **"30s"**
+
+### `nomad_acl_replication_token`
+
+- Token to use for acl replication on non authoritive servers
+- Default value: **""**
+
+### `nomad_vault_enabled`
+
+- Enable vault
+- Default value: **no**
+
 ### `nomad_vault_address`
 
 - Vault address to use
 - Default value: `{{ vault_address | default('0.0.0.0') }}`
+
+### `nomad_vault_allow_unauthenticated`
+
+- Allow users to use vault without providing their own token
+- Default value: **yes**
+
+### `nomad_vault_create_from_role`
+
+- Role to create tokens from
+- Default value: **""**
+
+### `nomad_vault_ca_file`
+
+- Path of CA cert to use with vault
+- Default value: **""**
+
+### `nomad_vault_ca_path`
+
+- Path of a folder containing CA cert(s) to use with vault
+- Default value: **""**
+
+### `nomad_vault_cert_file`
+
+- Path to a certificate to use with vault
+- Default value: **""**
+
+### `nomad_vault_key_file`
+
+- Path to a private key file to use with vault
+- Default value: **""**
+
+### `nomad_vault_tls_server_name`
+
+- Optional string used to set SNI host when connecting to vault
+- Default value: **""**
+
+### `nomad_vault_tls_skip_verify`
+
+- Specifies if SSL peer validation should be enforced
+- Default value: **no**
+
+### `nomad_vault_token`
+
+- Vault token used by nomad
+- Default value: **""**
 
 ### `nomad_docker_enable`
 

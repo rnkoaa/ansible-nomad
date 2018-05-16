@@ -16,7 +16,13 @@ After=basic.target network.target
 [Service]
 User={{ nomad_user }}
 Group={{ nomad_group }}
+{% if nomad_vault_enabled | bool %}
+ExecStart=VAULT_TOKEN={{ nomad_vault_token }} {{ nomad_bin_dir }}/nomad agent -config={{ nomad_config_dir }}
+{% endif %}
+
+{% if not nomad_vault_enabled | bool %}
 ExecStart={{ nomad_bin_dir }}/nomad agent -config={{ nomad_config_dir }}
+{% endif %}
 
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
