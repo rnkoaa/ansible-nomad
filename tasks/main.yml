@@ -130,7 +130,7 @@
   when: ansible_service_mgr == "systemd"
 
 - name: Start Nomad
-  service:
+  systemd:
+    state: restarted
+    daemon_reload: yes
     name: nomad
-    enabled: yes
-    state: started
